@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-Up Page</title>
+    
+    <link rel="stylesheet" href="bootstrap.css" />
+  </head>
+  <body class="bg-dark text-white">
+    
+    <div
+      class="container d-flex justify-content-center align-items-center min-vh-100"
+    >
+      <div
+        class="row bg-white rounded shadow p-4"
+        style="max-width: 800px; width: 100%"
+      >
+      
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+          <img
+            src="image/image.jpg"
+            alt="Puzzle illustration"
+            class="img-fluid rounded"
+          />
+        </div>
+        <!-- Form Section -->
+        <div class="col-md-6">
+          <h2 class="text-center text-primary mb-4">Sign Up</h2>
+          <form id="signupForm">
+            <div class="mb-3">
+              <input
+                id="fullName"
+                type="text"
+                placeholder="Full Name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                class="form-control"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn w-100"
+              style="background-color: #1c4484; color: white"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center text-white mt-3">
+      <p>&copy; Copyright Reserved</p>
+      <div>
+        <a href="#" class="text-white me-2">Twitter</a>
+        <a href="#" class="text-white me-2">Instagram</a>
+        <a href="#" class="text-white">Facebook</a>
+      </div>
+    </footer>
+
+   <script src="bootstrap.js"></script>
+   <script src="app.js"></script>
+  </body>
+</html>
