@@ -7,8 +7,8 @@ import { CreateRoleDto } from './dto/create-role.dto';
 export class RoleController {
 constructor(private readonly roleService:RoleService) {}
 @Get()
-getRole():Promise<Role[]>{
-    return this.roleService.getRole();
+getRoles():Promise<Role[]>{
+    return this.roleService.getRoles();
 }
 @Get(':id')
  getRoleById(@Param('id') id: number): Promise<Role> {

@@ -10,8 +10,15 @@ export class RoleService {
         @InjectRepository(Role)
         private roleRepository: Repository<Role>,){}
 
-    async getRole(): Promise <Role[]>{
+    async getRoles(): Promise <Role[]>{
         return this.roleRepository.find()
+    }
+    async getRoleByName(roleName:string):Promise<Role>{
+        const role= await this.roleRepository.findOne({where:{name: roleName}})
+        if(!role){
+            throw new Error(`Role ${roleName} not found`)
+        }
+        return role;
     }
 
     async getRoleById(id:number) : Promise <Role>{
@@ -35,6 +42,17 @@ export class RoleService {
     async deleteRole(id:number) :Promise<void>{
         const role=await this.getRoleById(id);
         await this.roleRepository.delete(role.id)
+    }
+
+    async seedRoles(): Promise<void> {
+        const staticRoles=['Admin','Customer','Service Giver']
+        for (const roleName of staticRoles) {
+            const roleExists= await this.roleRepository.findOne({where:{name:roleName}})
+            if(!roleExists){
+                const newRole=this.roleRepository.create({name:roleName})
+                await this.roleRepository.save(newRole)
+            }
+        }
     }
     
 }
