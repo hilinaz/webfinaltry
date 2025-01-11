@@ -6,6 +6,8 @@ import { User } from './user.entity';
 import { RoleModule } from '../role/role.module'; 
 
 
+
+
 @Module({
   imports:[TypeOrmModule.forFeature([User]),
 RoleModule,
