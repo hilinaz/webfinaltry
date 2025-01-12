@@ -6,30 +6,28 @@ import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { Role } from './role/role.entity';
 import { User } from './user/user.entity';
-import { Post } from './posts/post.entity'; // Import the posts module
 import { AuthModule } from './auth/auth.module';
-import { PostsModule } from './posts/posts.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type:'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'Hilu4238!',
-      database: 'Career_connector',//i try r=e
+      username:'postgres',
+      password : 'Hilu4238!',
+      database: 'Carrer_connector',
       autoLoadEntities: true,
-      synchronize: true,
-      entities: [Post, User],
+      synchronize: true, 
 
     }),
     UserModule,
     RoleModule,
     AuthModule,
-    PostsModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

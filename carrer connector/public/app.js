@@ -34,74 +34,63 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var _a;
 var _this = this;
-document.addEventListener('DOMContentLoaded', function () { return __awaiter(_this, void 0, void 0, function () {
-    // Function to render professionals based on data
-    function renderProfessionals(filteredProfessionals) {
-        professionalsContainer.innerHTML = ''; // Clear previous entries
-        filteredProfessionals.forEach(function (professional) {
-            var _a, _b;
-            var profileCard = document.createElement('div');
-            profileCard.className = 'row d-flex align-items-center mb-4';
-            var imagePath = professional.gender === 'Male'
-                ? 'image/Boy_Avatar.jpg'
-                : 'image/Girl_Avar.png';
-            profileCard.innerHTML = "\n          <div class=\"col-lg-4 col-md-6 mb-4 mb-md-0 p-5\">\n            <img src=\"".concat(imagePath, "\" alt=\"").concat(((_a = professional.user) === null || _a === void 0 ? void 0 : _a.name) || 'Unknown', "\" class=\"img-fluid rounded-circle\">\n          </div>\n          <div class=\"col-lg-8 col-md-6 pt-lg-6\">\n            <h5 class=\"card-title text-primary\">").concat(((_b = professional.user) === null || _b === void 0 ? void 0 : _b.fullname) || 'Unknown', "</h5>\n            <h6>").concat(professional.profession, "</h6>\n            <h6>Contact: ").concat(professional.phone_number, "</h6>\n            <p class=\"p-3 pt-1\">\n              ").concat(professional.description.substring(0, 450), "...\n              <a href=\"details.html?id=").concat(professional.cv, "\">View more</a>\n            </p>\n          </div>\n        ");
-            professionalsContainer.appendChild(profileCard);
-        });
-    }
-    var professionalsContainer, searchInput, searchForm, response, professionals_1, error_1;
+// Attach event listener to the form submission
+(_a = document
+    .getElementById('signupForm')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
+    var fullname, username, email, password, user, response, successMessage, formContainer, errorMessage, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                professionalsContainer = document.querySelector('.container.mb-4');
-                searchInput = document.querySelector('#searchInput');
-                searchForm = document.querySelector('#searchForm');
-                if (!professionalsContainer) {
-                    console.error('Container for professionals not found.');
-                    return [2 /*return*/];
-                }
+                event.preventDefault(); // Prevents default form submission
+                fullname = document.getElementById('fullName')
+                    .value;
+                username = document.getElementById('username')
+                    .value;
+                email = document.getElementById('email').value;
+                password = document.getElementById('password')
+                    .value;
+                user = {
+                    fullname: fullname,
+                    username: username,
+                    email: email,
+                    password: password,
+                };
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, fetch('http://localhost:3000/api/post/all', {
-                        method: 'GET',
+                _a.trys.push([1, 6, , 7]);
+                return [4 /*yield*/, fetch('http://localhost:3000/api/auth/register', {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
+                        body: JSON.stringify(user), // Sending the user data as JSON
                     })];
             case 2:
                 response = _a.sent();
-                if (!response.ok) {
-                    throw new Error("Failed to fetch professionals: ".concat(response.statusText));
+                if (!response.ok) return [3 /*break*/, 3];
+                successMessage = document.createElement('div');
+                successMessage.className = 'success-message';
+                successMessage.innerHTML = "\n          <span style=\"color: green; font-size: 24px;\">&#10003;</span> Login successful!";
+                formContainer = document.getElementById('signupForm');
+                if (formContainer) {
+                    formContainer.appendChild(successMessage);
                 }
-                return [4 /*yield*/, response.json()];
-            case 3:
-                professionals_1 = _a.sent();
-                if (!Array.isArray(professionals_1)) {
-                    console.error('Invalid response format: Expected an array of professionals.');
-                    return [2 /*return*/];
-                }
-                // Render all professionals initially
-                renderProfessionals(professionals_1);
-                // Event listener for search form input
-                searchForm.addEventListener('submit', function (event) {
-                    event.preventDefault(); // Prevent form submission
-                    var query = searchInput.value.trim().toLowerCase();
-                    // Filter professionals based on the profession starting with the search letter
-                    var filteredProfessionals = professionals_1.filter(function (professional) {
-                        return professional.profession.toLowerCase().startsWith(query);
-                    });
-                    // Render filtered professionals
-                    renderProfessionals(filteredProfessionals);
-                });
+                // Optionally redirect to another page, like login page
+                window.location.href = 'login.html';
                 return [3 /*break*/, 5];
+            case 3: return [4 /*yield*/, response.text()];
             case 4:
+                errorMessage = _a.sent();
+                console.log('Error: ' + errorMessage);
+                _a.label = 5;
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 error_1 = _a.sent();
-                console.error('Error fetching professionals:', error_1);
-                professionalsContainer.innerHTML = "<p class=\"text-center text-danger\">Failed to load professionals. Please try again later.</p>";
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                console.error('Error during sign-up:', error_1);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); });
